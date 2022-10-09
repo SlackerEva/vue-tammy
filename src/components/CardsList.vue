@@ -9,7 +9,7 @@
             <img :src="eyeShadow.imgPath" :alt="eyeShadow.name" class="h-full w-full object-cover object-center group-hover:opacity-75" />
           </div>
           <h3 class="mt-4 text-sm text-black-900">{{ eyeShadow.name }}</h3>
-          </a>
+        </a>
       </div>
     </div>
   </div>
@@ -19,6 +19,7 @@
 import { ref } from "vue";
 import { supabase } from "@/supabase/init.js";
 export default {
+  name: "cards_list",
   setup() {
     const data = ref(null);
     const dataLoaded = ref(null);
