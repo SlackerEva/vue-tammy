@@ -4,6 +4,9 @@
       <div class="flex items-center gap-x-4">
         <h1 class="text-lg">Tammy collector</h1>
       </div>
+ <!--  <div class="form-control">
+        <input type="text" v-model="search" placeholder="Search" class="input input-bordered" />
+      </div>-->   
       <ul class="flex flex-1 justify-end gap-x-10">
         <router-link v-if="!user" class="cursor-pointer" :to="{ name: 'user_login' }">Login</router-link>
         <li v-if="user" @click="logout" class="cursor-pointer">Logout</li>
@@ -14,11 +17,13 @@
 
 <script>
   import store from "@/store/store.js";
+ // import { ref } from "vue";
   import { computed } from "vue";
   import { supabase } from "../supabase/init";
   import { useRouter } from "vue-router";
   export default {
     setup() {
+      //let search = ref("");
       // Get user from store
       const user = computed(() => store.state.user);
       // Setup ref to router
