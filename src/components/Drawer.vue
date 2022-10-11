@@ -86,12 +86,15 @@
 
       const getUnmarked = async () => {
         try {
-        //  let { data: markedSh, error } = await supabase.from('userShadows').select(`user, shadow, eyeShadows (*)`).eq('user', user.value);
-          let { data: markedSh, error } = await supabase.from('userShadows').select(`eyeShadows (*)`).eq('user', user.value);
-          if (error) throw error;
+        //  let { data: unmarkedSh, error } = await supabase.from('userShadows').select(`user, shadow, eyeShadows (*)`).eq('user', user.value);
+          let { data: markedSh, error } = await supabase.from('userShadows').select(`eyeShadows (id)`).eq('user', user.value);
+          markedSh = markedSh.map(i => i.eyeShadows.id).toString();
           if (markedSh) {
-            store.methods.setData(markedSh.map(i => i.eyeShadows));
+            let { data: unmarkedSh, error } = await supabase.from('eyeShadows').select(`*`).not('id', 'in', `(${markedSh})`);
+            if (error) throw error;
+            store.methods.setData(unmarkedSh);
           }
+          if (error) throw error;
         } catch (error) {
           console.warn(error.message);
         }
