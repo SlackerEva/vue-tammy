@@ -18,19 +18,19 @@
         <div class="form-control space-y-2">
           <label class="label cursor-pointer flex items-center p-2">
             <span class="label-text">Рассыпчатые</span> 
-            <input type="checkbox" value="shadows" id="shadows" />
+            <input v-model="chkbxChk" type="checkbox" value="powder" id="powder" />
           </label>
           <label class="label cursor-pointer flex items-center p-2">
             <span class="label-text">Лимитки</span> 
-            <input type="checkbox" value="rare" id="rare" />
+            <input v-model="chkbxChk" type="checkbox" value="rare" id="rare" />
           </label>
           <label class="label cursor-pointer flex items-center p-2">
             <span class="label-text">Палетки</span> 
-            <input type="checkbox" value="palets" id="palets" />
+            <input v-model="chkbxChk" type="checkbox" value="palette" id="palets" />
           </label>
           <label class="label cursor-pointer flex items-center p-2">
             <span class="label-text">Пресованные</span> 
-            <input type="checkbox" value="pressed" id="pressed" />
+            <input v-model="chkbxChk" type="checkbox" value="pressed" id="pressed" />
           </label>
         </div>
         <button @click="onClick" class="cursor-pointer flex items-center p-2" id="btn">Show Selected Value</button>
@@ -49,6 +49,7 @@
     setup()  {
       const data = computed(() => store.state.data);
       const radioChk = ref();
+      const chkbxChk = ref([]);
       const isOpen = computed(() => store.state.openDrawer);
       const user = computed(() => store.state.user.id);
       const onClick = () => {
@@ -73,11 +74,14 @@
 
       const getMarked = async () => {
         try {
-        //  let { data: markedSh, error } = await supabase.from('userShadows').select(`user, shadow, eyeShadows (*)`).eq('user', user.value);
           let { data: markedSh, error } = await supabase.from('userShadows').select(`eyeShadows (*)`).eq('user', user.value);
           if (error) throw error;
           if (markedSh) {
-            store.methods.setData(markedSh.map(i => i.eyeShadows));
+            if (chkbxChk.value.length !== 0) {
+              store.methods.setData(markedSh.filter(i => chkbxChk.value.includes(i.eyeShadows.type)).map(i => i.eyeShadows));
+            } else {
+              store.methods.setData(markedSh.map(i => i.eyeShadows));
+            }
           }
         } catch (error) {
           console.warn(error.message);
@@ -86,13 +90,17 @@
 
       const getUnmarked = async () => {
         try {
-        //  let { data: unmarkedSh, error } = await supabase.from('userShadows').select(`user, shadow, eyeShadows (*)`).eq('user', user.value);
           let { data: markedSh, error } = await supabase.from('userShadows').select(`eyeShadows (id)`).eq('user', user.value);
           markedSh = markedSh.map(i => i.eyeShadows.id).toString();
           if (markedSh) {
             let { data: unmarkedSh, error } = await supabase.from('eyeShadows').select(`*`).not('id', 'in', `(${markedSh})`);
             if (error) throw error;
-            store.methods.setData(unmarkedSh);
+            if (chkbxChk.value.length !== 0) {
+              store.methods.setData(unmarkedSh.filter(i => chkbxChk.value.includes(i.type)));
+            } else {
+              store.methods.setData(unmarkedSh);
+            }
+
           }
           if (error) throw error;
         } catch (error) {
@@ -115,7 +123,7 @@
       };
 
       getData();
-      return { isOpen, onClick, radioChk, user, data, getMarked, getData, getUnmarked, getRandom };
+      return { isOpen, onClick, radioChk, chkbxChk, user, data, getMarked, getData, getUnmarked, getRandom };
     },
   }
 </script>
