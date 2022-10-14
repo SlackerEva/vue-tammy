@@ -25,7 +25,9 @@ export default {
   },
   setup() {
     const data = computed(() => store.state.data);
-    return {data}
+    const searchedData = computed(() => store.state.serachedData);
+    store.methods.getGeneralData();
+    return {data, searchedData}
   }
 };
 

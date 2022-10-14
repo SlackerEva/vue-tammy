@@ -48,6 +48,7 @@
     name: "right_drawer",
     setup()  {
       const data = computed(() => store.state.data);
+      const generalData = computed(() => store.state.generalData);
       const radioChk = ref();
       const chkbxChk = ref([]);
       const isOpen = computed(() => store.state.openDrawer);
@@ -58,20 +59,10 @@
         } else if (radioChk.value === 'unmarked') {
           getUnmarked();
         } else {
-          getData();
+          store.methods.setData(generalData.value);
         }
       }
-
-      const getData = async () => {
-        try {
-          const { data: eyeShadows, error } = await supabase.from("eyeShadows").select("*");
-          if (error) throw error;
-          store.methods.setData(eyeShadows);
-        } catch (error) {
-          console.warn(error.message);
-        }
-      };
-
+      
       const getMarked = async () => {
         try {
           let { data: markedSh, error } = await supabase.from('userShadows').select(`eyeShadows (*)`).eq('user', user.value);
@@ -121,9 +112,7 @@
           console.warn(error.message);
         }
       };
-
-      getData();
-      return { isOpen, onClick, radioChk, chkbxChk, user, data, getMarked, getData, getUnmarked, getRandom };
+      return { isOpen, onClick, radioChk, chkbxChk, user, data, getMarked, getUnmarked, getRandom };
     },
   }
 </script>
