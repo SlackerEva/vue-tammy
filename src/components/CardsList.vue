@@ -4,7 +4,7 @@
     <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 class="sr-only">Eye Shadows</h2>
       <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        <div v-for="eyeShadow in data" :key="eyeShadow.id" class="group items-center shadow-lg" >
+        <div v-for="eyeShadow in filteredData" :key="eyeShadow.id" class="group items-center shadow-lg" >
           <Card :eyeShadow="eyeShadow" />
         </div>
       </div>
@@ -24,10 +24,9 @@ export default {
     Drawer
   },
   setup() {
-    const data = computed(() => store.state.data);
-    const searchedData = computed(() => store.state.serachedData);
-    store.methods.getGeneralData();
-    return {data, searchedData}
+    const filteredData = computed(() => store.state.filteredData);
+    store.methods.getData();
+    return {filteredData}
   }
 };
 

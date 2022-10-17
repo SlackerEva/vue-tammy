@@ -47,8 +47,8 @@
   export default {
     name: "right_drawer",
     setup()  {
+      const filteredData = computed(() => store.state.filteredData);
       const data = computed(() => store.state.data);
-      const generalData = computed(() => store.state.generalData);
       const radioChk = ref();
       const chkbxChk = ref([]);
       const isOpen = computed(() => store.state.openDrawer);
@@ -59,7 +59,7 @@
         } else if (radioChk.value === 'unmarked') {
           getUnmarked();
         } else {
-          store.methods.setData(generalData.value);
+          store.methods.setFilteredData(data.value);
         }
       }
       
@@ -69,9 +69,9 @@
           if (error) throw error;
           if (markedSh) {
             if (chkbxChk.value.length !== 0) {
-              store.methods.setData(markedSh.filter(i => chkbxChk.value.includes(i.eyeShadows.type)).map(i => i.eyeShadows));
+              store.methods.setFilteredData(markedSh.filter(i => chkbxChk.value.includes(i.eyeShadows.type)).map(i => i.eyeShadows));
             } else {
-              store.methods.setData(markedSh.map(i => i.eyeShadows));
+              store.methods.setFilteredData(markedSh.map(i => i.eyeShadows));
             }
           }
         } catch (error) {
@@ -87,9 +87,9 @@
             let { data: unmarkedSh, error } = await supabase.from('eyeShadows').select(`*`).not('id', 'in', `(${markedSh})`);
             if (error) throw error;
             if (chkbxChk.value.length !== 0) {
-              store.methods.setData(unmarkedSh.filter(i => chkbxChk.value.includes(i.type)));
+              store.methods.setFilteredData(unmarkedSh.filter(i => chkbxChk.value.includes(i.type)));
             } else {
-              store.methods.setData(unmarkedSh);
+              store.methods.setFilteredData(unmarkedSh);
             }
 
           }
@@ -106,13 +106,13 @@
           if (markedSh) {
             let leng = markedSh.length;
             let random = Math.floor(Math.random() * leng);
-            store.methods.setData(markedSh[random]);
+            store.methods.setFilteredData(markedSh[random]);
           }
         } catch (error) {
           console.warn(error.message);
         }
       };
-      return { isOpen, onClick, radioChk, chkbxChk, user, data, getMarked, getUnmarked, getRandom };
+      return { isOpen, onClick, radioChk, chkbxChk, user, filteredData, getMarked, getUnmarked, getRandom };
     },
   }
 </script>

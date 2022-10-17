@@ -38,8 +38,8 @@
       let search = ref("");
       // Get user from store
       const user = computed(() => store.state.user);
+      const filteredData = computed(() => store.state.filteredData);
       const data = computed(() => store.state.data);
-      const generalData = computed(() => store.state.generalData);
       // Setup ref to router
       const router = useRouter();
       const isOpen = ref(false);
@@ -50,7 +50,7 @@
       };
 
       function searchedList() {
-        store.methods.setData(generalData.value.filter((data) =>
+        store.methods.setFilteredData(data.value.filter((data) =>
           data.name.toLowerCase().includes(search.value.toLowerCase())
         ));
       }
@@ -60,7 +60,7 @@
           await supabase.auth.signOut();
           router.push({ name: "cards_list" });
       };
-      return { logout, user, data, generalData, isOpen, onClick, search, searchedList };
+      return { logout, user, filteredData, data, isOpen, onClick, search, searchedList };
   },
 };
 </script>

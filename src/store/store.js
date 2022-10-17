@@ -5,8 +5,8 @@ import { supabase } from "@/supabase/init.js";
 const state = reactive({
   user: null,
   openDrawer: false,
+  filteredData: [],
   data: [],
-  generalData: [],
 });
 
 const methods = {
@@ -16,18 +16,18 @@ const methods = {
   setOpenDrawer(isOpen) {
     state.openDrawer = isOpen;
   },
+  setFilteredData(data) {
+    state.filteredData = data;
+  },
   setData(data) {
     state.data = data;
   },
-  setGeneralData(data) {
-    state.generalData = data;
-  },
-  async getGeneralData() {
+  async getData() {
     try {
       const { data: eyeShadows, error } = await supabase.from("eyeShadows").select("*");
       if (error) throw error;
-      store.methods.setGeneralData(eyeShadows);
       store.methods.setData(eyeShadows);
+      store.methods.setFilteredData(eyeShadows);
     } catch (error) {
       console.warn(error.message);
     }
