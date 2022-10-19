@@ -1,0 +1,36 @@
+{
+  "login": {
+    "login": "Login",
+    "inputs": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "text": "Don't have an account?"
+  },
+  "register": {
+    "register": "Register",
+    "inputs": {
+      "email": "Email",
+      "password": "Password",
+      "conf-password": "Confirm Password"
+    },
+    "text": "Alredy have an account?"
+  },
+  "nav-bar": {
+    "search": "Search",
+    "title": "Tammy",
+    "logout": "Logout"
+  },
+  "drawer": {
+    "filters": "Filters",
+    "show-all": "Show All",
+    "show-mrk": "Show Marked",
+    "show-unmrk": "Show Unmarked",
+    "powder": "Powders",
+    "rare": "Artifacts",
+    "palette": "Palettes",
+    "pressed": "Pressed",
+    "show-btn": "Show Selected Value",
+    "random": "Show Random Color"
+  }
+}

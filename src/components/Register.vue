@@ -1,6 +1,5 @@
 <template>
   <div class="max-w-screen-sm mx-auto px-4 py-10">
-     Error Handling 
     <div v-if="errorMsg" class="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
       <p class="text-red-500">{{ errorMsg }}</p>
     </div>
@@ -10,10 +9,10 @@
       @submit.prevent="register"
       class="p-8 flex flex-col bg-light-grey rounded-md shadow-lg"
     >
-      <h1 class="text-3xl text-at-light-green mb-4">Register</h1>
+      <h1 class="text-3xl text-at-light-green mb-4">{{$t('register.register')}}</h1>
 
       <div class="flex flex-col mb-2">
-        <label for="email" class="mb-1 text-sm text-at-light-green">Email</label>
+        <label for="email" class="mb-1 text-sm text-at-light-green">{{$t('register.inputs.email')}}</label>
         <input
           type="text"
           required
@@ -24,7 +23,7 @@
       </div><!--  -->
 
       <div class="flex flex-col mb-2">
-        <label for="password" class="mb-1 text-sm text-at-light-green">Password</label>
+        <label for="password" class="mb-1 text-sm text-at-light-green">{{$t('register.inputs.password')}}</label>
         <input
           type="password"
           required
@@ -36,7 +35,7 @@
 
       <div class="flex flex-col mb-2">
         <label for="confirmPassword" class="mb-1 text-sm text-at-light-green"
-          >Confirm Password</label
+          >{{$t('register.inputs.conf-password')}}</label
         >
         <input
           type="password"
@@ -54,11 +53,11 @@
       border-2 border-transparent hover:border-at-light-green hover:bg-white
       hover:text-at-light-green"
       >
-        Register
+      {{$t('register.register')}}
       </button>
 
       <router-link class="text-sm mt-6 text-center" :to="{ name: 'user_login' }">
-        Already have an account? <span class="text-at-light-green">Login</span>
+        {{$t('register.text')}} <span class="text-at-light-green">{{$t('login.login')}}</span>
       </router-link>
     </form>
   </div>

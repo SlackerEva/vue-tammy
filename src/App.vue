@@ -17,6 +17,7 @@ export default {
     Nav,
   },
   setup() {
+
     // Create data / vars
     const appReady = ref(null);
     // Check to see if user is already logged in

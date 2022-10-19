@@ -1,19 +1,17 @@
 <template>
   <div class="max-w-screen-sm mx-auto px-4 py-10">
-    Error Handling 
     <div v-if="errorMsg" class="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
       <p class="text-red-500">{{ errorMsg }}</p>
     </div>
-
     <!-- Login -->
     <form
       @submit.prevent="login"
       class="p-8 flex flex-col bg-light-grey rounded-md shadow-lg"
     >
-      <h1 class="text-3xl text-at-light-green mb-4">Login</h1>
+      <h1 class="text-3xl text-at-light-green mb-4">{{$t('login.login')}}</h1>
 
       <div class="flex flex-col mb-2">
-        <label for="email" class="mb-1 text-sm text-at-light-green">Email</label>
+        <label for="email" class="mb-1 text-sm text-at-light-green">{{$t('login.inputs.email')}}</label>
         <input
           type="text"
           required
@@ -24,7 +22,7 @@
       </div>
 
       <div class="flex flex-col mb-2">
-        <label for="password" class="mb-1 text-sm text-at-light-green">Password</label>
+        <label for="password" class="mb-1 text-sm text-at-light-green">{{$t('login.inputs.password')}}</label>
         <input
           type="password"
           required
@@ -41,11 +39,11 @@
       border-2 border-transparent hover:border-at-light-green hover:bg-white
       hover:text-at-light-green"
       >
-        Login
+      {{$t('login.login')}}
       </button>
 
-     <router-link class="text-sm mt-6 text-center" :to="{ name: 'user_register' }">
-        Don't have an account? <span class="text-at-light-green">Register</span>
+      <router-link class="text-sm mt-6 text-center" :to="{ name: 'user_register' }">
+        {{$t('login.text')}} <span class="text-at-light-green">{{$t('register.register')}}</span>
       </router-link> 
     </form>
   </div>
@@ -72,7 +70,6 @@ export default {
         });
         if (error) throw error;
         router.push({ name: "cards_list" });
-        console.log('Hi');
       } catch (error) {
         errorMsg.value = `Error: ${error.message}`;
         setTimeout(() => {

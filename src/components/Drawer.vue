@@ -1,40 +1,40 @@
 <template>
 <div v-if='isOpen' id="drawer-navigation" class="fixed z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
-    <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Фильтры</h5>
+    <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">{{$t('drawer.filters')}}</h5>
     <div class="py-4 overflow-y-auto">
       <div class="form-control space-y-2">
         <label class="label cursor-pointer flex items-center p-2">
-          <span class="label-text">Показать все</span> 
+          <span class="label-text">{{$t('drawer.show-all')}}</span> 
           <input v-model="radioChk" value="all" type="radio" name="radio-6" class="radio checked:bg-red-500" checked />
         </label>
         <label class="label cursor-pointer flex items-center p-2">
-          <span class="label-text">Показать отмеченные</span> 
+          <span class="label-text">{{$t('drawer.show-mrk')}}</span> 
           <input v-model="radioChk" value="marked" type="radio" name="radio-6" class="radio checked:bg-blue-500" />
         </label>
         <label class="label cursor-pointer flex items-center p-2">
-          <span class="label-text">Показать неотмеченные</span> 
+          <span class="label-text">{{$t('drawer.show-unmrk')}}</span> 
           <input v-model="radioChk" value="unmarked" type="radio" name="radio-6" class="radio checked:bg-blue-500" />
         </label>
         <div class="form-control space-y-2">
           <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">Рассыпчатые</span> 
+            <span class="label-text">{{$t('drawer.powder')}}</span> 
             <input v-model="chkbxChk" type="checkbox" value="powder" id="powder" />
           </label>
           <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">Лимитки</span> 
+            <span class="label-text">{{$t('drawer.rare')}}</span> 
             <input v-model="chkbxChk" type="checkbox" value="rare" id="rare" />
           </label>
           <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">Палетки</span> 
+            <span class="label-text">{{$t('drawer.palette')}}</span> 
             <input v-model="chkbxChk" type="checkbox" value="palette" id="palets" />
           </label>
           <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">Пресованные</span> 
+            <span class="label-text">{{$t('drawer.pressed')}}</span> 
             <input v-model="chkbxChk" type="checkbox" value="pressed" id="pressed" />
           </label>
         </div>
-        <button @click="onClick" class="cursor-pointer flex items-center p-2" id="btn">Show Selected Value</button>
-        <button @click="getRandom" class="cursor-pointer flex items-center p-2" id="btn">Show Random</button>
+        <button @click="onClick" class="cursor-pointer flex items-center p-2" id="btn">{{$t('drawer.show-btn')}}</button>
+        <button @click="getRandom" class="cursor-pointer flex items-center p-2" id="btn">{{$t('drawer.random')}}</button>
       </div>
    </div>
 </div>

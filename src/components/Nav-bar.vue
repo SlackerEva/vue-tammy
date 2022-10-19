@@ -8,16 +8,20 @@
       </button>
       <div class="flex items-center gap-x-4">
         <router-link :to="{ name: 'cards_list' }">
-          <h1 class="text-lg">Tammy collector</h1>
+          <h1 class="text-lg">{{$t('nav-bar.title')}}</h1>
         </router-link>
       </div>
       <div class="form-control">
-        <input type="text" v-model="search" placeholder="Search" class="input input-bordered text-gray-500" />
-        <button @click="searchedList">search</button>
+        <input type="text" v-model="search" :placeholder="$t('nav-bar.search')" class="input input-bordered text-gray-500" />
+        <button @click="searchedList">{{$t('nav-bar.search')}}</button>
       </div>
+      <select class="text-gray-500" v-model="$i18n.locale">
+        <option value="ru">ru</option>
+        <option value="en">en</option>
+      </select>
       <ul class="flex flex-1 justify-end gap-x-10">
-        <router-link v-if="!user" class="cursor-pointer" :to="{ name: 'user_login' }">Login</router-link>
-        <li v-if="user" @click="logout" class="cursor-pointer">Logout</li>
+        <router-link v-if="!user" class="cursor-pointer" :to="{ name: 'user_login' }">{{$t('login.login')}}</router-link>
+        <li v-if="user" @click="logout" class="cursor-pointer">{{$t('nav-bar.logout')}}</li>
       </ul> 
     </nav>
   </header>
@@ -29,11 +33,8 @@
   import { computed } from "vue";
   import { supabase } from "../supabase/init";
   import { useRouter } from "vue-router";
-  //import Drawer from '@/components/Drawer.vue';
+
   export default {
-    components: {
-    //  Drawer
-    },
     setup() {
       let search = ref("");
       // Get user from store
