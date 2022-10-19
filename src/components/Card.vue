@@ -4,8 +4,10 @@
       <img :src="eyeShadow.imgPath" :alt="eyeShadow.name" class="h-full w-full object-cover object-center group-hover:opacity-75" />
     </a>
   </div>
-  <h3 class="mt-4 text-sm text-black-900">{{ eyeShadow.name }}</h3>
-  <Bookmark_btn :shadowID="eyeShadow.id" v-if="user"/>
+  <div class="flex place-content-between p-3">
+    <h3 class="text-base font-bold text-black-900 content-center truncate">{{ eyeShadow.name }}</h3>
+    <Bookmark_btn :shadowID="eyeShadow.id" v-if="user"/>
+  </div>
 </template>
 <script>
 import Bookmark_btn from '@/components/UI/bookmarkBtn.vue';

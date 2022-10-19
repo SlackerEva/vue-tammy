@@ -1,40 +1,122 @@
 <template>
 <div v-if='isOpen' id="drawer-navigation" class="fixed z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
-    <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">{{$t('drawer.filters')}}</h5>
+    <h5 class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
+      {{$t('drawer.filters')}}
+    </h5>
     <div class="py-4 overflow-y-auto">
       <div class="form-control space-y-2">
-        <label class="label cursor-pointer flex items-center p-2">
-          <span class="label-text">{{$t('drawer.show-all')}}</span> 
-          <input v-model="radioChk" value="all" type="radio" name="radio-6" class="radio checked:bg-red-500" checked />
-        </label>
-        <label class="label cursor-pointer flex items-center p-2">
-          <span class="label-text">{{$t('drawer.show-mrk')}}</span> 
-          <input v-model="radioChk" value="marked" type="radio" name="radio-6" class="radio checked:bg-blue-500" />
-        </label>
-        <label class="label cursor-pointer flex items-center p-2">
-          <span class="label-text">{{$t('drawer.show-unmrk')}}</span> 
-          <input v-model="radioChk" value="unmarked" type="radio" name="radio-6" class="radio checked:bg-blue-500" />
-        </label>
-        <div class="form-control space-y-2">
-          <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">{{$t('drawer.powder')}}</span> 
-            <input v-model="chkbxChk" type="checkbox" value="powder" id="powder" />
-          </label>
-          <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">{{$t('drawer.rare')}}</span> 
-            <input v-model="chkbxChk" type="checkbox" value="rare" id="rare" />
-          </label>
-          <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">{{$t('drawer.palette')}}</span> 
-            <input v-model="chkbxChk" type="checkbox" value="palette" id="palets" />
-          </label>
-          <label class="label cursor-pointer flex items-center p-2">
-            <span class="label-text">{{$t('drawer.pressed')}}</span> 
-            <input v-model="chkbxChk" type="checkbox" value="pressed" id="pressed" />
-          </label>
+        <select 
+          class="bg-gray-50 border border-gray-300 text-gray-900 
+          text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
+          block w-full p-2.5" 
+          v-model="radioChk"
+        >
+          <option value="all">{{$t('drawer.show-all')}}</option>
+          <option value="marked">{{$t('drawer.show-mrk')}}</option>
+          <option value="unmarked">{{$t('drawer.show-unmrk')}}</option>
+        </select>
+        <div v-if="radioChk !== 'all'" class="form-control space-y-2">
+          <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+              <div class="flex items-center pl-3">
+                <input 
+                  id="powder" 
+                  type="checkbox" 
+                  value="powder"
+                  v-model="chkbxChk"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300
+                  focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 
+                  focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                >
+                <label 
+                  for="powder" 
+                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  {{$t('drawer.powder')}}
+                </label>
+              </div>
+            </li>
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+              <div class="flex items-center pl-3">
+                <input 
+                  id="rare" 
+                  type="checkbox" 
+                  value="rare"
+                  v-model="chkbxChk"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300
+                  focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 
+                  focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                >
+                <label 
+                  for="rare" 
+                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  {{$t('drawer.rare')}}
+                </label>
+              </div>
+            </li>
+          </ul>
+          <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+              <div class="flex items-center pl-3">
+                <input 
+                  id="palette" 
+                  type="checkbox" 
+                  value="palette"
+                  v-model="chkbxChk"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300
+                  focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 
+                  focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                >
+                <label 
+                  for="palette" 
+                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  {{$t('drawer.palette')}}
+                </label>
+              </div>
+            </li>
+            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+              <div class="flex items-center pl-3">
+                <input 
+                  id="pressed" 
+                  type="checkbox" 
+                  value="pressed"
+                  v-model="chkbxChk"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300
+                  focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 
+                  focus:ring-2 dark:bg-gray-600 dark:border-gray-500" 
+                >
+                <label 
+                  for="pressed" 
+                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  {{$t('drawer.pressed')}}
+                </label>
+              </div>
+            </li>
+          </ul>
         </div>
-        <button @click="onClick" class="cursor-pointer flex items-center p-2" id="btn">{{$t('drawer.show-btn')}}</button>
-        <button @click="getRandom" class="cursor-pointer flex items-center p-2" id="btn">{{$t('drawer.random')}}</button>
+        <button 
+          @click="onClick" 
+          class="bg-teal-500 border rounded border-white w-full leading-none
+          px-4 py-3 mt-4
+          text-white text-base
+          hover:border-transparent hover:text-teal-500 
+          hover:bg-white hover:border-teal-500" 
+        >
+          {{$t('drawer.show-btn')}}
+        </button>
+        <button 
+          @click="getRandom" 
+          class="bg-teal-500 border rounded border-white w-full leading-none
+          px-4 py-3 mt-4
+          text-white text-base
+          hover:border-transparent hover:text-teal-500 
+          hover:bg-white hover:border-teal-500" 
+        >
+          {{$t('drawer.random')}}
+        </button>
       </div>
    </div>
 </div>
@@ -49,7 +131,7 @@
     setup()  {
       const filteredData = computed(() => store.state.filteredData);
       const data = computed(() => store.state.data);
-      const radioChk = ref();
+      const radioChk = ref('all');
       const chkbxChk = ref([]);
       const isOpen = computed(() => store.state.openDrawer);
       const user = computed(() => store.state.user.id);
