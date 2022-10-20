@@ -5,7 +5,8 @@
     </a>
   </div>
   <div class="flex place-content-between p-3">
-    <h3 class="text-base font-bold text-black-900 content-center truncate">{{ eyeShadow.name }}</h3>
+    <h3 v-if="$i18n.locale !== 'en'" class="text-base font-bold text-black-900 content-center truncate">{{ eyeShadow.name }}</h3>
+    <h3 v-else class="text-base font-bold text-black-900 content-center truncate">{{ eyeShadow.nameEn }}</h3>
     <Bookmark_btn :shadowID="eyeShadow.id" v-if="user"/>
   </div>
 </template>

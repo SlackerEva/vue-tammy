@@ -87,9 +87,10 @@
       };
 
       function searchedList() {
-        store.methods.setFilteredData(data.value.filter((data) =>
-          data.name.toLowerCase().includes(search.value.toLowerCase())
-        ));
+        store.methods.setFilteredData(data.value.filter((data) => {
+          return data.name.toLowerCase().includes(search.value.toLowerCase()) ||
+          data.nameEn.toLowerCase().includes(search.value.toLowerCase())
+        }));
       }
 
       // Logout function
